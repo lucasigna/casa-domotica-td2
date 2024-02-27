@@ -1,0 +1,32 @@
+{
+  "name": "prueba-electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run dev": "npx electron .",
+    "run build": "npx electron-builder"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^25.0.1",
+    "electron-builder": "^23.6.0"
+  },
+  "build": {
+    "appId": "com.prueba1.app",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "dependencies": {
+    "@serialport/list": "^12.0.0",
+    "node-usb-detection": "^1.0.2",
+    "serialport": "^12.0.0",
+    "usb": "^2.9.0"
+  }
+}

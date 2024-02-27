@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Configuración de Wifi</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 400px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .input-field {
+      margin-bottom: 15px;
+      margin-right: 15px;
+    }
+
+    .input-field label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: 0.2s ease-in-out; /* Agregar una transición */
+    }
+
+    .input-field input:focus {
+      transform: scale(1.02); /* Hacer que el campo se agrande suavemente al seleccionar */
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .button-container button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 10px;
+      transition: background-color 0.3s ease-in-out, transform 0.1s ease-in-out; /* Agregar transiciones */
+    }
+
+    .button-container button:hover {
+      background-color: #45a049; /* Cambiar el color de fondo al pasar el mouse */
+    }
+
+    .button-container button:active {
+      transform: scale(0.95); /* Reducir el tamaño del botón al hacer clic */
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 20px;
+      color: #666666;
+    }
+
+    .status-icon {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 5px;
+      transition: background-color 0.3s ease-in-out; /* Agregar una transición suave */
+    }
+
+    .status-icon.connected {
+      background-color: #4caf50; /* Cambiar el color de fondo para el estado conectado */
+    }
+
+    .status-icon.disconnected {
+      background-color: #ccc; /* Cambiar el color de fondo para el estado desconectado */
+    }
+
+    #alert-empty-data{
+      color: red;
+      visibility: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Configuración de WiFi</h1>
+  
+    <div class="input-field">
+      <label for="wifi-name">Nombre del WiFi:</label>
+      <input type="text" id="wifi-name" required/>
+    </div>
+
+    <div class="input-field">
+      <label for="wifi-password">Contraseña del WiFi:</label>
+      <input type="text" id="wifi-password" required/>
+    </div>
+
+    <div class="button-container">
+      <button id="send-button">Enviar datos</button>
+      <button id="view-button">Ver datos cargados</button>
+    </div>
+
+    <p id="alert-empty-data">No puedes enviar datos vacíos</p>
+
+    <div id="status">
+      <span class="status-icon disconnected"></span>
+      Placa desconectada
+    </div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    ipcRenderer.send('app-ready');
+
+    ipcRenderer.on('device-connected', (event, devices) => {
+      document.getElementById('status').innerHTML = '<span class="status-icon connected"></span>Placa conectada';
+      //ipcRenderer.send('send-data', "", "", true);
+    });
+
+    ipcRenderer.on('device-disconnected', () => {
+      document.getElementById('status').innerHTML = '<span class="status-icon disconnected"></span>Placa desconectada';
+    });
+
+    ipcRenderer.on('get-data-wifi', (event, data) => {
+      document.getElementById('wifi-name').value = `${data.nombre_wifi}`;
+      document.getElementById('wifi-password').value = `${data.password_wifi}`;
+      document.getElementById('wifi-name').style.border = '1px solid red';
+      document.getElementById('wifi-password').style.border = '1px solid red';
+      setTimeout(() => {
+        document.getElementById('wifi-name').style.border = '1px solid #ccc';
+        document.getElementById('wifi-password').style.border = '1px solid #ccc';
+      }, 200)
+    });
+
+    const sendButton = document.getElementById('send-button');
+    sendButton.addEventListener('click', () => {
+      const wifiName = document.getElementById('wifi-name').value;
+      const wifiPassword = document.getElementById('wifi-password').value;
+      console.log('ENVIO');
+      if(wifiName != '' && wifiPassword != '' && wifiName != null && wifiPassword != null) {
+        // Realizar acciones con los datos ingresados
+        // por ejemplo, enviarlos a tu placa LPC845-BRK a través de USB
+        console.log('Nombre del WiFi:', wifiName);
+        console.log('Contraseña del WiFi:', wifiPassword);
+        // Enviar datos al proceso principal de Electron
+        ipcRenderer.send('send-data', wifiName, wifiPassword, false);
+      } else {
+        console.log('No puedes enviar datos vacíos');
+        const alert = document.getElementById('alert-empty-data');
+        alert.style.visibility = 'visible';
+        setTimeout(() => alert.style.visibility = 'hidden', 5000)
+      }
+    });
+
+    const viewButton = document.getElementById('view-button');
+    viewButton.addEventListener('click', () => {
+      const wifiName = document.getElementById('wifi-name').value;
+      const wifiPassword = document.getElementById('wifi-password').value;
+      
+      // Realizar acciones para ver los datos cargados
+      // por ejemplo, mostrar los datos en una ventana emergente o en la consola
+      ipcRenderer.send('send-data', wifiName, wifiPassword, true);
+    });
+  </script>
+</body>
+</html>
