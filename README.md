@@ -3,9 +3,15 @@ Esto es mi proyecto integrador de la materia Técnicas Digitales 2 de 4to año d
 
 [Informe Final del Proyecto](https://drive.google.com/file/d/1HTl4FN6zS-q5GI3TRCP4-OzRvRgcNZSA/view?usp=sharing)
 
+![Persiana moviendose](https://github.com/lucasigna/casa-domotica-td2/blob/main/media/persiana2.gif)
+
 ## Concepto
 
 La idea es controlar los sensores y actuadores de una maqueta de una casa desde una página web.
+
+![Diagrama](https://github.com/lucasigna/casa-domotica-td2/blob/main/media/Diagrama.jpg)
+
+![Casa](https://github.com/lucasigna/casa-domotica-td2/blob/main/media/casa.jpg)
 
 # Funcionalidades
 
@@ -17,13 +23,19 @@ Desde la página web se pueden prender y apagar las luces que se soliciten. Adem
 
 Cada habitación contiene una persiana, éstas últimas pueden abrirse o cerrarse desde la página web. Así como las luces, las persianas también pueden programarse para que estén abiertas en una franja horaria configurable.
 
+![Persiana moviendose](https://github.com/lucasigna/casa-domotica-td2/blob/main/media/persiana1.gif)
+
 ## Control automático de luces exteriores
 
 En el exterior de la casa hay 2 luces LED, las cuales solo se encienden cuando la cantidad de luz baja de cierto umbral.
 
+![Diagrama](https://github.com/lucasigna/casa-domotica-td2/blob/main/media/exterior.jpg)
+
 ## Monitoreo con sensores de movimiento
 
 Se puede activar el sistema de alarmas, lo que provoca que cuando se detecta algún movimiento dentro de la casa aparece una alerta en la página web.
+
+![Sistema de alarma](https://github.com/lucasigna/casa-domotica-td2/blob/main/media/alerta.gif)
 
 # Hardware
 
@@ -66,6 +78,8 @@ Para lograr la conectividad WiFi utilicé el módulo ESP01S. Desde el microcontr
 
 Para el frontend utilicé React.
 
+![Página](https://github.com/lucasigna/casa-domotica-td2/blob/main/media/web.jpg)
+
 ## Backend
 
 Para el backend utilicé un servidor Node.js y express, el cual tuve que alojar en Glitch porque el Módulo WiFi ESP01S no soporta solicitudes HTTPS. La base de datos que terminé usando fue firebase ya que ya estaba familiarizado y no manejaba información sensible.
@@ -73,5 +87,7 @@ Para el backend utilicé un servidor Node.js y express, el cual tuve que alojar 
 ## Aplicación de escritorio
 
 Diseñe una App de escritorio con Electron.js para enviar los datos de WiFi (SSID y contraseña) al microcontrolador a través de UART por USB para almacenar los datos en la memoria Flash.
+
+![App](https://github.com/lucasigna/casa-domotica-td2/blob/main/media/electron.jpg)
 
 
