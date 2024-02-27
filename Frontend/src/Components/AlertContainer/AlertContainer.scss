@@ -1,0 +1,54 @@
+@import '../../assets/_variables.scss';
+
+.alertContainerBack{
+    position: fixed;
+    background-color: $colorNegroTrans;
+    width: 100vw;
+    min-height: 100vh;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .alertContainer{
+        z-index: 15;
+        background-color: $colorBlanco;
+        border-radius: 20px;
+        animation: growFromCenter 0.2s ease-out;
+        transform-origin: center center;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+        p:first-child{
+            font-size: 30px;
+            font-weight: bold;
+        }
+        p{
+            color: #000;
+        }
+        button{
+            width: 300px;
+            padding: 15px;
+            border-radius: 10px;
+            outline: none;
+            border: 1px solid $colorRojo;
+            background-color: $colorRojoTrans;
+            cursor: pointer;
+            &:hover{
+                background-color: $colorRojo;
+            }
+        }
+    }
+}
+
+@keyframes growFromCenter {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
