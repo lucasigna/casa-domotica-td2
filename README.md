@@ -1,7 +1,7 @@
 # Casa Domótica
 Esto es mi proyecto integrador de la materia Técnicas Digitales 2 de 4to año de la carrera Ingeniería Electrónica de la UTN FRA.
 
-![Informe Final del Proyecto](https://drive.google.com/file/d/1HTl4FN6zS-q5GI3TRCP4-OzRvRgcNZSA/view?usp=sharing)
+[Informe Final del Proyecto](https://drive.google.com/file/d/1HTl4FN6zS-q5GI3TRCP4-OzRvRgcNZSA/view?usp=sharing)
 
 ## Concepto
 
